@@ -142,6 +142,7 @@ void compileFuncDecl(void) {
   compileBlock();
   eat(SB_SEMICOLON);
   assert("Function parsed ....");
+  compileSubDecls();
 }
 
 void compileProcDecl(void) {
@@ -153,6 +154,7 @@ void compileProcDecl(void) {
   compileBlock();
   eat(SB_SEMICOLON);
   assert("Procedure parsed ....");
+  compileSubDecls();
 }
 
 void compileUnsignedConstant(void) {
@@ -211,9 +213,6 @@ void compileType(void) {
   case KW_CHAR:
     compileBasicType();
     break;
-  case TK_IDENT:
-    eat(TK_IDENT);
-    break;
   case KW_ARRAY:
     eat(KW_ARRAY);
     eat(SB_LSEL);
@@ -221,6 +220,9 @@ void compileType(void) {
     eat(SB_RSEL);
     eat(KW_OF);
     compileType();
+    break;
+  case TK_IDENT:
+    eat(TK_IDENT);
     break;
   default:
     error(ERR_INVALIDTYPE, lookAhead->lineNo, lookAhead->colNo);
@@ -314,7 +316,9 @@ void compileStatement(void) {
 void compileAssignSt(void) {
   assert("Parsing an assign statement ....");
   eat(TK_IDENT);
-  compileIndexes();
+  if (lookAhead->tokenType == SB_LSEL) {
+    compileIndexes();
+  }
   eat(SB_ASSIGN);
   compileExpression();
   assert("Assign statement parsed ....");
@@ -499,15 +503,10 @@ void compileFactor(void) {
     break;
   case TK_IDENT:
     eat(TK_IDENT);
-    switch (lookAhead->tokenType) {
-    case SB_LSEL:
+    if (lookAhead->tokenType == SB_LSEL) {
       compileIndexes();
-      break;
-    case SB_LPAR:
+    } else if (lookAhead->tokenType == SB_LPAR) {
       compileArguments();
-      break;
-    default:
-      break;
     }
     break;
   case SB_LPAR:

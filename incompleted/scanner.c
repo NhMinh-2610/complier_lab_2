@@ -262,6 +262,7 @@ void printToken(Token *token) {
   case KW_VAR: printf("KW_VAR\n"); break;
   case KW_INTEGER: printf("KW_INTEGER\n"); break;
   case KW_CHAR: printf("KW_CHAR\n"); break;
+  case KW_REAL: printf("KW_REAL\n"); break;
   case KW_ARRAY: printf("KW_ARRAY\n"); break;
   case KW_OF: printf("KW_OF\n"); break;
   case KW_FUNCTION: printf("KW_FUNCTION\n"); break;
@@ -292,10 +293,11 @@ void printToken(Token *token) {
   case SB_MINUS: printf("SB_MINUS\n"); break;
   case SB_TIMES: printf("SB_TIMES\n"); break;
   case SB_SLASH: printf("SB_SLASH\n"); break;
+  case SB_MULT: printf("SB_MULT\n"); break;
+  case SB_DIV: printf("SB_DIV\n"); break;
   case SB_LPAR: printf("SB_LPAR\n"); break;
   case SB_RPAR: printf("SB_RPAR\n"); break;
   case SB_LSEL: printf("SB_LSEL\n"); break;
   case SB_RSEL: printf("SB_RSEL\n"); break;
   }
 }
-
