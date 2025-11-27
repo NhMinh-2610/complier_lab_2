@@ -1,11 +1,11 @@
 CFLAGS = -c -Wall
 CC = gcc
-LIBS =  -lm 
+LIBS = -lm
 
-all: parser
+all: parser.exe
 
-parser: main.o parser.o scanner.o reader.o charcode.o token.o error.o
-	${CC} main.o parser.o scanner.o reader.o charcode.o token.o error.o -o parser
+parser.exe: main.o parser.o scanner.o reader.o charcode.o token.o error.o
+	${CC} main.o parser.o scanner.o reader.o charcode.o token.o error.o -o parser.exe
 
 main.o: main.c
 	${CC} ${CFLAGS} main.c
@@ -29,5 +29,5 @@ error.o: error.c
 	${CC} ${CFLAGS} error.c
 
 clean:
-	rm -f *.o *~
+	rm -f *.o *.exe *~
 
